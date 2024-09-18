@@ -2,7 +2,7 @@
 This repo contains code and instructions on how to run [Visual Studio Code](https://code.visualstudio.com/) localy with all code executed on remote LSF cluster. It was inspired by discussion [here](https://github.com/microsoft/vscode-remote-release/issues/1722#issuecomment-1216040876).
 
 # How to use
-You'll need Visual Studio Code with installed `Remote` extension and ssh access to the head node of lsf cluster (it'll be referenced as `farm5` below) through vpn or ssh tunnel if necessary.
+You'll need Visual Studio Code with installed `Remote` extension and ssh access to the head node of lsf cluster (it'll be referenced as `3dra2` below) through vpn or ssh tunnel if necessary.
 The idea is to run `sshd` server as lsf job and connect to it from Visual Studio using Remote SSH through the tunnel.
 ## Remote server (LSF)
 Login to the head node, download bsub script and run it:
@@ -16,18 +16,18 @@ Memory, number of cores, queue and gpu memory can be specified as command line a
 ## Local machine
 First edit your `~/.ssh/config` by adding following lines:
 ```
-Host farm5comp
-  ProxyCommand ssh farm5 "nc \$(/software/lsf-farm5/10.1/linux3.10-glibc2.17-x86_64/bin/bjobs  -o first_host -J vs-code-tunnel -noheader) 5678"
+Host 3dra2comp
+  ProxyCommand ssh 3dra2 "nc \$(/pkg/qct/software/platform/lsf/10.1/GPUSLASA/10.1/linux3.10-glibc2.17-x86_64/bin/bjobs -o first_host -J vs-code-tunnel -noheader) 5678"
   StrictHostKeyChecking no
   User <USER>
 ```
-Replace  `<USER>` with your farm5 user name. Thanks to `ProxyCommand` this will allow to determine host name by job name (note `vs-code-tunnel` matches job name from bsub script.)
+Replace  `<USER>` with your 3dra2 user name. Thanks to `ProxyCommand` this will allow to determine host name by job name (note `vs-code-tunnel` matches job name from bsub script.)
 You can check whether it works by 
 ```
-ssh farm5comp
+ssh 3dra2comp
 ```
 If everything is allright it should send you to the compute node.
-Now launch Visual Studio, go to Remote SSH extension, chose farm5comp and voila!
+Now launch Visual Studio, go to Remote SSH extension, chose 3dra2comp and voila!
 ## Cleanup
 It is better to kill job when you stop working with Visual Studio to release resources. You can do it by:
 ```
