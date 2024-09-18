@@ -22,6 +22,9 @@ Host 3dra2comp
   User <USER>
 ```
 Replace  `<USER>` with your 3dra2 user name. Thanks to `ProxyCommand` this will allow to determine host name by job name (note `vs-code-tunnel` matches job name from bsub script.)
+
+The command `/pkg/qct/software/platform/lsf/10.1/GPUSLASA/10.1/linux3.10-glibc2.17-x86_64/bin/bjobs` can be located on your own server by `which bjobs`, and please replace the command above with your own bjobs path.
+
 You can check whether it works by 
 ```
 ssh 3dra2comp
